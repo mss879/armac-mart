@@ -22,7 +22,8 @@
   /* ---- Ink ---- */
   --color-ink: oklch(24% 0.03 45);
   --color-ink-2: oklch(42.8% 0.078 40);
-  --color-muted: oklch(52% 0.03 48);
+  /* L46, not L52: secondary text sits on tinted tiles as well as plain paper. */
+  --color-muted: oklch(46% 0.032 48);
 
   /* ---- Structure ---- */
   --color-rule: oklch(87.4% 0.006 75);

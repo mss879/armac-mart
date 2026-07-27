@@ -25,7 +25,9 @@
   /* ---- Ink ---- */
   --color-ink: oklch(24% 0.03 45);
   --color-ink-2: oklch(42.8% 0.078 40);
-  --color-muted: oklch(52% 0.03 48);
+  /* L46, not L52: secondary text now sits on tinted tiles (tan/30, tan/35,
+     wood/15) as well as plain paper, and L52 fell to 3.6-4.5 on those. */
+  --color-muted: oklch(46% 0.032 48);
 
   /* ---- Structure ---- */
   --color-rule: oklch(87.4% 0.006 75);
@@ -114,6 +116,52 @@ h4 {
 /* Numerals in prices and counts align vertically */
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* ---- Tactile surface ----------------------------------------------------
+   A very low-opacity turbulence grain keeps the large flat cream panels from
+   reading as dead vector fill. Self-contained data URI — no network request.
+   Kept under 0.06 alpha so it is felt rather than seen.                    */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Skewed band --------------------------------------------------------
+   The ticker sits on a slight rotation, like a strip of tape across the page.
+   The band is over-wide and negatively margined so the rotated corners never
+   expose the paper behind them.                                            */
+.band-skew {
+  transform: rotate(-1.4deg) scale(1.04);
+  transform-origin: center;
+}
+
+/* ---- Floating tag -------------------------------------------------------
+   Small rotated pills that sit half-outside their container, echoing the
+   reference boards. Rotation alternates so a row never looks aligned.      */
+.tag-tilt-a {
+  transform: rotate(-4deg);
+}
+.tag-tilt-b {
+  transform: rotate(3deg);
+}
+.tag-tilt-c {
+  transform: rotate(-2deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tag-float {
+    transition:
+      transform var(--dur-mid) var(--ease-out),
+      box-shadow var(--dur-mid) var(--ease-out);
+  }
+  .tag-float:hover {
+    transform: rotate(0deg) translateY(-2px);
+  }
 }
 
 /* ---- Ticker -------------------------------------------------------------
