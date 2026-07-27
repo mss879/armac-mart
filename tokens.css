@@ -1,0 +1,90 @@
+/* ARMAC MART — design tokens
+ *
+ * Portable export of the system used by the homepage. The app consumes these
+ * through the `@theme` block in src/app/globals.css (Tailwind v4); this file is
+ * the framework-agnostic copy — drop it into any project that needs the brand.
+ *
+ * Client palette, converted to OKLCH and tinted warm so no neutral sits at
+ * chroma 0. Source hex noted against each token.
+ */
+
+:root {
+  /* ---- Paper ---- */
+  --color-paper: oklch(95.6% 0.004 80); /* #F2F2F0 */
+  --color-paper-2: oklch(92.8% 0.009 70); /* warm cream step */
+  --color-paper-3: oklch(87.4% 0.006 75); /* #D9D8D7 */
+
+  /* ---- Brand woods ---- */
+  --color-tan: oklch(73.1% 0.044 53); /* #BFA18F */
+  --color-wood: oklch(62.8% 0.058 53); /* #A67F68 */
+  --color-walnut: oklch(42.8% 0.078 40); /* #733F2D */
+
+  /* ---- Ink ---- */
+  --color-ink: oklch(24% 0.03 45);
+  --color-ink-2: oklch(42.8% 0.078 40);
+  --color-muted: oklch(52% 0.03 48);
+
+  /* ---- Structure ---- */
+  --color-rule: oklch(87.4% 0.006 75);
+  --color-rule-2: oklch(91.5% 0.005 75);
+
+  /* ---- Signals ---- */
+  --color-accent: oklch(42.8% 0.078 40);
+  --color-accent-ink: oklch(95.6% 0.004 80);
+  --color-signal: oklch(70% 0.145 62);
+  --color-signal-ink: oklch(24% 0.03 45);
+  --color-focus: oklch(52% 0.15 45);
+
+  /* ---- Type ---- */
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-3xl: 3.0518rem;
+  --text-4xl: 3.8147rem;
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(2.25rem, 3.5vw + 1rem, 3.8147rem);
+
+  /* ---- Space (4pt scale) ---- */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* ---- Radius ---- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-pill: 999px;
+
+  /* ---- Rules ---- */
+  --rule-hairline: 1px;
+  --rule-heavy: 2px;
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-short: 140ms;
+  --dur-mid: 240ms;
+  --dur-long: 620ms;
+
+  /* ---- Elevation ---- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-nav: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+}

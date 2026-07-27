@@ -1,26 +1,264 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Hallmark · macrostructure: Ecosystem Index · H1 marquee knobs: size=xxl, alignment=left-bias, underlay=footage
+ * genre: playful · theme: custom (tuned) · vibe: "warm wood, market-day, honest shelf"
+ * paper: oklch(95.6% 0.004 80) · accent: oklch(42.8% 0.078 40)
+ * display: Bricolage Grotesque 800 · body: Geist · axes: light / display-heavy / warm
+ * nav: N12 banner+retract · footer: Ft3 index columns · enrichment: Tier-C generated still
+ * studied: no · context: user-provided palette (5 brand hexes) · v1.1.0
+ * pre-emit critique: P5 H5 E4 S5 R4 V5
+ */
+
+@theme {
+  /* ---- Paper ------------------------------------------------------------
+     Client palette, converted to OKLCH and tinted warm so no neutral sits
+     at chroma 0. Hex equivalents noted for brand verification.            */
+  --color-paper: oklch(95.6% 0.004 80); /* #F2F2F0 */
+  --color-paper-2: oklch(92.8% 0.009 70); /* warm cream step */
+  --color-paper-3: oklch(87.4% 0.006 75); /* #D9D8D7 */
+
+  /* ---- Brand woods ---- */
+  --color-tan: oklch(73.1% 0.044 53); /* #BFA18F */
+  --color-wood: oklch(62.8% 0.058 53); /* #A67F68 */
+  --color-walnut: oklch(42.8% 0.078 40); /* #733F2D */
+
+  /* ---- Ink ---- */
+  --color-ink: oklch(24% 0.03 45);
+  --color-ink-2: oklch(42.8% 0.078 40);
+  --color-muted: oklch(52% 0.03 48);
+
+  /* ---- Structure ---- */
+  --color-rule: oklch(87.4% 0.006 75);
+  --color-rule-2: oklch(91.5% 0.005 75);
+
+  /* ---- Signals ---- */
+  --color-accent: oklch(42.8% 0.078 40);
+  --color-accent-ink: oklch(95.6% 0.004 80);
+  --color-signal: oklch(70% 0.145 62); /* amber — badges only, <5% footprint */
+  --color-signal-ink: oklch(24% 0.03 45);
+  --color-focus: oklch(52% 0.15 45);
+
+  /* Extra-small breakpoint: the nav bar needs one step between 320 and 640 */
+  --breakpoint-xs: 25rem;
+
+  /* ---- Type ---- */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(2.25rem, 3.5vw + 1rem, 3.8147rem);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-short: 140ms;
+  --dur-mid: 240ms;
+
+  /* ---- Elevation (named scale — never z-index: 9999) ---- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-nav: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Gate 34 — root overflow is clipped, never hidden */
+html,
+body {
+  overflow-x: clip;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display type is always roman — italic headers are banned (gate 38a) */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  /* Gate 51 — long words break rather than overflow */
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* Focus is a first-class state and never animates in */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-walnut);
+  color: var(--color-paper);
+}
+
+/* Numerals in prices and counts align vertically */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Ticker -------------------------------------------------------------
+   Two identical tracks translated by -50% give a seamless loop without JS. */
+@keyframes armac-ticker {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.ticker__track {
+  animation: armac-ticker 42s linear infinite;
+  will-change: transform;
+}
+
+.ticker:hover .ticker__track,
+.ticker:focus-within .ticker__track {
+  animation-play-state: paused;
+}
+
+/* ---- Hero choreography --------------------------------------------------
+   A single timed sequence, driven entirely by CSS animation delays so it runs
+   even if hydration is slow or fails — the content is never gated behind JS.
+
+     0.0s  welcome preloader holds
+     2.0s  preloader clears, footage runs clean
+     5.0s  scrim washes in over the footage
+     5.3s  headline, lede and actions rise in, staggered
+                                                                            */
+@keyframes armac-veil-out {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes armac-veil-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes armac-hero-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes armac-veil-mark {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.veil {
+  animation: armac-veil-out 480ms var(--ease-out) 2000ms forwards;
+}
+
+.veil__mark {
+  animation: armac-veil-mark 720ms var(--ease-out) both;
+}
+
+.hero__scrim {
+  animation: armac-veil-in 700ms var(--ease-out) 5000ms both;
+}
+
+.hero__reveal > * {
+  animation: armac-hero-in 800ms var(--ease-out) both;
+}
+
+.hero__reveal > *:nth-child(1) {
+  animation-delay: 5300ms;
+}
+.hero__reveal > *:nth-child(2) {
+  animation-delay: 5420ms;
+}
+.hero__reveal > *:nth-child(3) {
+  animation-delay: 5540ms;
+}
+.hero__reveal > *:nth-child(4) {
+  animation-delay: 5660ms;
+}
+.hero__reveal > *:nth-child(5) {
+  animation-delay: 5780ms;
+}
+
+/* One orchestrated entrance on first load — not fade-up on every section */
+@keyframes armac-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.rise {
+  animation: armac-rise 620ms var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ticker__track {
+    animation: none;
+    transform: none;
+  }
+  .rise {
+    animation: armac-rise 140ms linear both;
+    transform: none;
+  }
+  /* The hero sequence is delay-driven, so delays must be zeroed as well as
+     durations — otherwise reduced-motion users still wait 5s for the headline. */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero__reveal > * {
+    transform: none !important;
+  }
 }
