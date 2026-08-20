@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Armac Mart Refined 2-Tone Palette (Dark Walnut Wood & Warm Cream) ---- */
+  --color-walnut-deep: #160c07;        /* Deep espresso / black walnut */
+  --color-walnut: #24140e;             /* Primary luxury dark wood */
+  --color-walnut-light: #382016;       /* Medium walnut */
+  --color-cocoa-ink: #140a06;          /* Deep dark ink for razor-sharp typography */
+  
+  /* Clean Warm Cream & Neutral Canvas */
+  --color-parchment: #fbf9f5;          /* Pure warm cream page background */
+  --color-antique: #f3ede2;            /* Secondary section & clean card background */
+  --color-antique-card: #f8f4ec;       /* Crisp neutral product image background */
+  --color-mist: #e6ded2;               /* Crisp sharp divider & border */
+  --color-mist-dark: #cfc4b4;          /* Stronger border definition */
+  --color-beige: #75543c;              /* Refined secondary labels */
+  --color-tan: #523725;                /* Tertiary text */
+
+  /* Single Refined Accent (Warm Bronze / Amber Gold) */
+  --color-brand-amber: #b87928;        /* Refined warm amber for subtle highlights */
+  --color-brand-amber-soft: #ebd6b5;   /* Soft warm amber tint */
+  --color-brand-amber-dark: #8c5816;   /* Deep amber */
+
+  --font-display: var(--font-display), "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 0 1px 3px rgba(20, 10, 6, 0.05), 0 6px 18px -4px rgba(20, 10, 6, 0.06);
+  --shadow-pop: 0 4px 8px -2px rgba(20, 10, 6, 0.08), 0 16px 28px -6px rgba(20, 10, 6, 0.12);
+
+  --animate-marquee: marquee 35s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-parchment);
+  color: var(--color-cocoa-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-walnut);
+  color: #ffffff;
+}
+
+/* Modern sharp display headings */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* Clean, sharp e-commerce buttons - unified Dark Walnut */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  background-color: var(--color-walnut);
+  color: #ffffff;
+  padding: 0.625rem 1.25rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: var(--color-cocoa-ink);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 10, 6, 0.18);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  background-color: var(--color-antique);
+  color: var(--color-cocoa-ink);
+  border: 1px solid var(--color-mist);
+  padding: 0.625rem 1.25rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background-color: #ffffff;
+  border-color: var(--color-mist-dark);
+}
+
+.btn-amber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  background-color: var(--color-brand-amber);
+  color: #ffffff;
+  padding: 0.625rem 1.25rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-amber:hover {
+  background-color: var(--color-brand-amber-dark);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  border: 1.5px solid var(--color-walnut);
+  color: var(--color-walnut);
+  background-color: transparent;
+  padding: 0.55rem 1.2rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background-color: var(--color-walnut);
+  color: #ffffff;
+}
+
+/* Sharp professional e-commerce product card */
+.card-sharp {
+  background-color: #ffffff;
+  border: 1px solid var(--color-mist);
+  border-radius: 0.5rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.card-sharp:hover {
+  border-color: var(--color-mist-dark);
+  box-shadow: var(--shadow-card);
+}
+
+/* Category Circle - Clean, unified presentation */
+.cat-circle-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.cat-circle-btn:hover {
+  transform: translateY(-2px);
+}
+
+.cat-circle-img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 2px solid var(--color-mist);
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(20, 10, 6, 0.06);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cat-circle-btn:hover .cat-circle-img {
+  border-color: var(--color-walnut);
+  box-shadow: 0 4px 12px rgba(20, 10, 6, 0.12);
+}
+.cat-circle-btn.active .cat-circle-img {
+  border-color: var(--color-walnut);
+  border-width: 2.5px;
+  box-shadow: 0 0 0 3px var(--color-antique);
+}
+
+@media (min-width: 640px) {
+  .cat-circle-img {
+    width: 5.75rem;
+    height: 5.75rem;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-antique);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-mist-dark);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-beige);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
